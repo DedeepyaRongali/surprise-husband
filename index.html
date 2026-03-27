@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To My Amazing Husband</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ffeaa7 100%);
+            color: #5a4a42;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-hearts {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0;
+            animation: floatUp 15s infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Intro Section */
+        .intro-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .intro-content {
+            opacity: 0;
+            animation: fadeInScale 2s ease-out forwards;
+            max-width: 900px;
+        }
+
+        .intro-section h1 {
+            font-size: 5rem;
+            color: #8b4513;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .golden-ring {
+            font-size: 4rem;
+            animation: rotate360 4s linear infinite;
+            margin: 2rem 0;
+            display: inline-block;
+        }
+
+        .subtitle {
+            font-size: 2rem;
+            color: #a0522d;
+            font-style: italic;
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            animation: bounceArrow 2s infinite;
+            cursor: pointer;
+            color: #d4af37;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Love Counter Section */
+        .counter-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 4rem;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            text-align: center;
+            margin: 4rem auto;
+            max-width: 900px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1s ease;
+        }
+
+        .counter-section.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .counter-title {
+            font-size: 3rem;
+            color: #8b4513;
+            margin-bottom: 1rem;
+        }
+
+        .counter-subtitle {
+            font-size: 1.3rem;
+            color: #a0522d;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .counter-display {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .counter-box {
+            background: linear-gradient(135deg, #ffd89b 0%, #ffb88c 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            animation: popIn 0.5s ease;
+        }
+
+        .counter-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #8b4513;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .counter-label {
+            font-size: 1rem;
+            color: #a0522d;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Photos with Messages - Random Layout */
+        .photo-messages-container {
+            position: relative;
+            min-height: 300vh;
+            padding: 4rem 0;
+        }
+
+        .photo-message-item {
+            position: absolute;
+            width: 450px;
+            opacity: 0;
+            transform: scale(0.8) rotate(0deg);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .photo-message-item.visible {
+            opacity: 1;
+            transform: scale(1) rotate(var(--rotate));
+        }
+
+        .photo-message-item:hover {
+            transform: scale(1.05) rotate(0deg) translateY(-10px);
+            z-index: 100;
+        }
+
+        .photo-frame {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-frame:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-message {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe4cc 100%);
+            border-radius: 15px;
+            border-left: 5px solid #d4af37;
+        }
+
+        .photo-message h3 {
+            font-size: 1.5rem;
+            color: #8b4513;
+            margin-bottom: 0.8rem;
+        }
+
+        .photo-message p {
+            font-size: 1.1rem;
+            color: #5a4a42;
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        /* Promise Cards */
+        .promises-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe4cc 100%);
+        }
+
+        .promises-title {
+            text-align: center;
+            font-size: 4rem;
+            color: #8b4513;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .promises-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .promises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .promise-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 3rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promise-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .promise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .promise-card:hover::before {
+            left: 100%;
+        }
+
+        .promise-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .promise-card h3 {
+            font-size: 2rem;
+            color: #d4af37;
+            margin-bottom: 1.5rem;
+        }
+
+        .promise-card p {
+            font-size: 1.2rem;
+            color: #5a4a42;
+            line-height: 1.8;
+        }
+
+        /* Interactive Love Button */
+        .love-button-section {
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .love-button-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 4rem;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .love-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            border: none;
+            padding: 1.5rem 4rem;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(238,90,111,0.4);
+            transition: all 0.3s ease;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .love-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(238,90,111,0.6);
+        }
+
+        .love-button:active {
+            transform: scale(0.95);
+        }
+
+        .love-explosion {
+            position: fixed;
+            pointer-events: none;
+            font-size: 2rem;
+            animation: explode 1s ease-out forwards;
+            z-index: 1000;
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+
+        .click-counter {
+            margin-top: 2rem;
+            font-size: 1.3rem;
+            color: #8b4513;
+        }
+
+        /* Final Message */
+        .final-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        }
+
+        .final-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 5rem;
+            max-width: 900px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1.5s ease;
+        }
+
+        .final-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .final-message {
+            font-size: 2.5rem;
+            color: #8b4513;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .signature {
+            font-size: 2.5rem;
+            color: #d4af37;
+            font-style: italic;
+            margin-top: 2rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .final-hearts {
+            font-size: 3rem;
+            margin-top: 2rem;
+            animation: heartBeat 1.5s ease-in-out infinite;
+        }
+
+        /* Photo Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 15px;
+            animation: zoomIn 0.4s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 3rem;
+            font-size: 4rem;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Animations */
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rotate360 {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes bounceArrow {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+            }
+            60% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.2);
+            }
+            50% {
+                transform: scale(1);
+            }
+            75% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.5);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .intro-section h1 {
+                font-size: 3rem;
+            }
+
+            .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .counter-display {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .photo-message-item {
+                width: 90%;
+                position: relative !important;
+                left: 5% !important;
+                top: auto !important;
+                margin-bottom: 3rem;
+            }
+
+            .photo-messages-container {
+                min-height: auto;
+            }
+
+            .promises-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .final-message {
+                font-size: 1.8rem;
+            }
+
+            .love-button {
+                padding: 1rem 2.5rem;
+                font-size: 1.2rem;
+            }
+
+            .counter-title {
+                font-size: 2rem;
+            }
+
+            .promises-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <!-- Intro Section -->
+    <section class="intro-section">
+        <div class="intro-content">
+            <h1>To My Amazing Husband</h1>
+            <div class="golden-ring">💍</div>
+            <p class="subtitle">Every moment with you is a treasure.<br>Here's my heart, my love, and my promises to you Siddu.</p>
+        </div>
+        <div class="scroll-hint" onclick="smoothScroll('.counter-section')">↓</div>
+    </section>
+
+    <!-- Love Counter -->
+    <section class="main-content">
+        <div class="counter-section">
+            <h2 class="counter-title">Our Time Together</h2>
+            <p class="counter-subtitle">Every second counts when I'm with you</p>
+            <div class="counter-display">
+                <div class="counter-box">
+                    <div class="counter-number" id="daysCounter">0</div>
+                    <div class="counter-label">Days</div>
+                </div>
+                <div class="counter-box">
+                    <div class="counter-number" id="hoursCounter">0</div>
+                    <div class="counter-label">Hours</div>
+                </div>
+                <div class="counter-box">
+                    <div class="counter-number" id="minutesCounter">0</div>
+                    <div class="counter-label">Minutes</div>
+                </div>
+                <div class="counter-box">
+                    <div class="counter-number" id="secondsCounter">0</div>
+                    <div class="counter-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photos with Personal Messages - Random Layout -->
+        <div class="photo-messages-container" id="photoContainer">
+            <div class="photo-message-item" data-rotate="2">
+                <div class="photo-frame" onclick="openModal(this)">
+                    <img src="photo1.jpg" alt="Our memory">
+                </div>
+                <div class="photo-message">
+                    <h3>My Best Friend</h3>
+                    <p>You're not just my husband, you're my best friend. I promise to always be there for you, to listen when you need to talk, and to support your dreams.</p>
+                </div>
+            </div>
+
+            <div class="photo-message-item" data-rotate="-2">
+                <div class="photo-frame" onclick="openModal(this)">
+                    <img src="photo2.jpg" alt="Our memory">
+                </div>
+                <div class="photo-message">
+                    <h3>You Make Me Laugh</h3>
+                    <p>Your sense of humor lights up my darkest days. Thank you for filling our home with laughter and joy. I promise to always appreciate your silly jokes and funny faces.</p>
+                </div>
+            </div>
+
+            <div class="photo-message-item" data-rotate="1">
+                <div class="photo-frame" onclick="openModal(this)">
+                    <img src="photo3.jpg" alt="Our memory">
+                </div>
+                <div class="photo-message">
+                    <h3>Your Smile, My Sunshine</h3>
+                    <p>This smile of yours melts my heart every single time. I promise to do everything I can to keep that beautiful smile on your face forever.</p>
+                </div>
+            </div>
+
+            <div class="photo-message-item" data-rotate="-1">
+                <div class="photo-frame" onclick="openModal(this)">
+                    <img src="photo4.jpg" alt="Our memory">
+                </div>
+                <div class="photo-message">
+                    <h3>Home Is Where You Are</h3>
+                    <p>You are my safe place, my comfort, my home. I promise to always make our home a sanctuary filled with love, warmth, and peace.</p>
+                </div>
+            </div>
+
+            <div class="photo-message-item" data-rotate="2">
+                <div class="photo-frame" onclick="openModal(this)">
+                    <img src="photo5.jpg" alt="Our memory">
+                </div>
+                <div class="photo-message">
+                    <h3>Adventures Together</h3>
+                    <p>Every adventure is better with you by my side. I promise to keep exploring the world with you, making memories that will last a lifetime.</p>
+                </div>
+            </div>
+
+            <div class="photo-message-item" data-rotate="-2">
+                <div class="photo-frame" onclick="openModal(this)">
+                    <img src="photo6.jpg" alt="Our memory">
+                </div>
+                <div class="photo-message">
+                    <h3>Forever Grateful</h3>
+                    <p>I'm so grateful for everything you do, every sacrifice you make, every moment you give. I promise to never take you for granted.</p>
+                </div>
+            </div>
+
+            <div class="photo-message-item" data-rotate="1">
+                <div class="photo-frame" onclick="openModal(this)">
+                    <img src="photo7.jpg" alt="Our memory">
+                </div>
+                <div class="photo-message">
+                    <h3>Growing Together</h3>
+                    <p>We've grown so much together, and I love who we're becoming. I promise to keep growing with you, learning with you, and evolving together.</p>
+                </div>
+            </div>
+
+            <div class="photo-message-item" data-rotate="-1">
+                <div class="photo-frame" onclick="openModal(this)">
+                    <img src="photo8.jpg" alt="Our memory">
+                </div>
+                <div class="photo-message">
+                    <h3>Through Thick and Thin</h3>
+                    <p>Life isn't always easy, but with you, I can face anything. I promise to stand by you through every challenge, every storm, every uncertainty.</p>
+                </div>
+            </div>
+
+            <div class="photo-message-item" data-rotate="2">
+                <div class="photo-frame" onclick="openModal(this)">
+                    <img src="photo9.jpg" alt="Our memory">
+                </div>
+                <div class="photo-message">
+                    <h3>My Forever Love</h3>
+                    <p>You are my forever. Today, tomorrow, and always. I promise to love you more with each passing day, to cherish you, and to choose you over and over again.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- My Promises to You -->
+    <section class="promises-section">
+        <h2 class="promises-title">My Promises to You</h2>
+        <div class="promises-grid">
+            <div class="promise-card">
+                <div class="promise-icon">💝</div>
+                <h3>To Love You Unconditionally</h3>
+                <p>I promise to love you with all my heart, exactly as you are, through every season of life.</p>
+            </div>
+            <div class="promise-card">
+                <div class="promise-icon">🤗</div>
+                <h3>To Support Your Dreams</h3>
+                <p>Your dreams are my dreams. I promise to encourage you, believe in you, and help you achieve everything you desire.</p>
+            </div>
+            <div class="promise-card">
+                <div class="promise-icon">🌟</div>
+                <h3>To Celebrate You</h3>
+                <p>I promise to celebrate your victories, big and small, and to remind you of your worth when you forget.</p>
+            </div>
+            <div class="promise-card">
+                <div class="promise-icon">🛡️</div>
+                <h3>To Protect Our Love</h3>
+                <p>I promise to nurture our relationship, to communicate openly, and to never let the little things come between us.</p>
+            </div>
+            <div class="promise-card">
+                <div class="promise-icon">😊</div>
+                <h3>To Make You Smile</h3>
+                <p>I promise to find new ways to make you happy, to surprise you, and to keep the spark alive in our marriage.</p>
+            </div>
+            <div class="promise-card">
+                <div class="promise-icon">🙏</div>
+                <h3>To Be Your Partner</h3>
+                <p>I promise to be your equal partner in everything, to share the load, and to build our future together as a team.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Love Button -->
+    <section class="love-button-section">
+        <div class="love-button-container">
+            <h2 style="font-size: 2.5rem; color: #8b4513; margin-bottom: 2rem;">Send Me Your Love</h2>
+            <p style="font-size: 1.2rem; color: #a0522d; margin-bottom: 2rem;">Click the button to fill the screen with hearts!</p>
+            <button class="love-button" onclick="createLoveExplosion(event)">
+                I Love You Too! 💕
+            </button>
+            <p class="click-counter">
+                Hearts sent: <span id="clickCounter" style="font-weight: bold; color: #ee5a6f;">0</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Final Message -->
+    <section class="final-section">
+        <div class="final-card">
+            <p class="final-message">
+                You are the love of my life, my greatest blessing, and my forever person.
+                <br><br>
+                Thank you for choosing me, for loving me, and for being the most incredible husband.
+                <br><br>
+                I love you more than words can ever express.
+            </p>
+            <div class="signature">
+                Forever yours,<br>
+                Your Chinni 💕
+            </div>
+            <div class="final-hearts">❤️ 💛 💚 💙 💜</div>
+        </div>
+    </section>
+
+    <!-- Photo Modal -->
+    <div class="modal" id="photoModal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // Smooth scroll
+        function smoothScroll(selector) {
+            document.querySelector(selector).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Create floating hearts background
+        function createFloatingHearts() {
+            const bg = document.getElementById('bgAnimation');
+            const hearts = ['❤️', '💕', '💗', '💖', '💝'];
+
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'floating-hearts';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                bg.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 20000);
+            }, 3000);
+        }
+
+        // Random photo positioning
+        function positionPhotosRandomly() {
+            const container = document.getElementById('photoContainer');
+            const items = container.querySelectorAll('.photo-message-item');
+            const isMobile = window.innerWidth <= 768;
+
+            if (!isMobile) {
+                items.forEach((item, index) => {
+                    const row = Math.floor(index / 3);
+                    const col = index % 3;
+
+                    const baseTop = row * 800 + 100;
+                    const baseLeft = col * 33 + 5;
+
+                    const randomTop = baseTop + (Math.random() * 200 - 100);
+                    const randomLeft = baseLeft + (Math.random() * 10 - 5);
+
+                    item.style.top = randomTop + 'px';
+                    item.style.left = randomLeft + '%';
+                    item.style.setProperty('--rotate', item.dataset.rotate + 'deg');
+                });
+            }
+        }
+
+        // Intersection Observer
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Photo modal
+        function openModal(element) {
+            const modal = document.getElementById('photoModal');
+            const modalImg = document.getElementById('modalImage');
+            const img = element.querySelector('img');
+
+            modal.classList.add('active');
+            modalImg.src = img.src;
+        }
+
+        function closeModal() {
+            document.getElementById('photoModal').classList.remove('active');
+        }
+
+        // Love counter
+        function updateCounter() {
+            const startDate = new Date('11-02-2026');
+            const now = new Date();
+            const difference = now - startDate;
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('daysCounter').textContent = days;
+            document.getElementById('hoursCounter').textContent = hours;
+            document.getElementById('minutesCounter').textContent = minutes;
+            document.getElementById('secondsCounter').textContent = seconds;
+        }
+
+        // Love button explosion
+        let loveClicks = 0;
+        function createLoveExplosion(event) {
+            loveClicks++;
+            document.getElementById('clickCounter').textContent = loveClicks;
+
+            const button = event.target;
+            const hearts = ['❤️', '💕', '💗', '💖', '💝', '💓', '💞'];
+
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'love-explosion';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+                const rect = button.getBoundingClientRect();
+                heart.style.left = rect.left + rect.width / 2 + 'px';
+                heart.style.top = rect.top + rect.height / 2 + 'px';
+
+                const angle = (Math.PI * 2 * i) / 20;
+                const distance = 100 + Math.random() * 150;
+                heart.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+                heart.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 1000);
+            }
+
+            button.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                button.style.transform = '';
+            }, 200);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingHearts();
+            positionPhotosRandomly();
+            updateCounter();
+            setInterval(updateCounter, 1000);
+
+            // Observe elements
+            const animatedElements = document.querySelectorAll(
+                '.counter-section, .photo-message-item, .promises-title, ' +
+                '.promise-card, .final-card'
+            );
+
+            animatedElements.forEach((el, index) => {
+                el.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(el);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            });
+
+            window.addEventListener('resize', positionPhotosRandomly);
+        });
+    </script>
+</body>
+</html>
